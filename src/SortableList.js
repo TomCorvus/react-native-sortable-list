@@ -44,6 +44,7 @@ export default class SortableList extends Component {
     onChangeOrder: PropTypes.func,
     onActivateRow: PropTypes.func,
     onReleaseRow: PropTypes.func,
+    onLayout: PropTypes.func,
     onScroll: PropTypes.func,
   };
 
@@ -369,7 +370,11 @@ export default class SortableList extends Component {
             contentHeight,
             contentWidth,
           }, () => {
-            this.setState({ animated: true });
+            this.setState({ animated: true }, () => {
+              if (this.props.onLayout) {
+                this.props.onLayout();
+              }
+            });
           });
         });
       });
