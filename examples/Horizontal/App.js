@@ -4,7 +4,7 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   Animated,
   Easing,
@@ -14,52 +14,51 @@ import {
   View,
   Dimensions,
   Platform,
-} from 'react-native';
-import SortableList from 'react-native-sortable-list';
+} from "react-native";
+import SortableList from "react-native-sortable-list";
 
-const window = Dimensions.get('window');
-
+const window = Dimensions.get("window");
 
 const data = {
   0: {
-    image: 'https://placekitten.com/200/240',
-    text: 'Chloe',
+    image: "https://placekitten.com/200/240",
+    text: "Chloe",
   },
   1: {
-    image: 'https://placekitten.com/200/201',
-    text: 'Jasper',
+    image: "https://placekitten.com/200/201",
+    text: "Jasper",
   },
   2: {
-    image: 'https://placekitten.com/200/202',
-    text: 'Pepper',
+    image: "https://placekitten.com/200/202",
+    text: "Pepper",
   },
   3: {
-    image: 'https://placekitten.com/200/203',
-    text: 'Oscar',
+    image: "https://placekitten.com/200/203",
+    text: "Oscar",
   },
   4: {
-    image: 'https://placekitten.com/200/204',
-    text: 'Dusty',
+    image: "https://placekitten.com/200/204",
+    text: "Dusty",
   },
   5: {
-    image: 'https://placekitten.com/200/205',
-    text: 'Spooky',
+    image: "https://placekitten.com/200/205",
+    text: "Spooky",
   },
   6: {
-    image: 'https://placekitten.com/200/210',
-    text: 'Kiki',
+    image: "https://placekitten.com/200/210",
+    text: "Kiki",
   },
   7: {
-    image: 'https://placekitten.com/200/215',
-    text: 'Smokey',
+    image: "https://placekitten.com/200/215",
+    text: "Smokey",
   },
   8: {
-    image: 'https://placekitten.com/200/220',
-    text: 'Gizmo',
+    image: "https://placekitten.com/200/220",
+    text: "Gizmo",
   },
   9: {
-    image: 'https://placekitten.com/220/239',
-    text: 'Kitty',
+    image: "https://placekitten.com/220/239",
+    text: "Kitty",
   },
 };
 
@@ -73,18 +72,18 @@ export default class Horizontal extends Component {
           style={styles.list}
           contentContainerStyle={styles.contentContainer}
           data={data}
-          renderRow={this._renderRow} />
+          renderRow={this._renderRow}
+        />
       </View>
     );
   }
 
-  _renderRow = ({data, active}) => {
-    return <Row data={data} active={active} />
-  }
+  _renderRow = ({ data, active }) => {
+    return <Row data={data} active={active} />;
+  };
 }
 
 class Row extends Component {
-
   constructor(props) {
     super(props);
 
@@ -93,12 +92,14 @@ class Row extends Component {
     this._style = {
       ...Platform.select({
         ios: {
-          transform: [{
-            scale: this._active.interpolate({
-              inputRange: [0, 1],
-              outputRange: [1, 1.1],
-            }),
-          }],
+          transform: [
+            {
+              scale: this._active.interpolate({
+                inputRange: [0, 1],
+                outputRange: [1, 1.1],
+              }),
+            },
+          ],
           shadowRadius: this._active.interpolate({
             inputRange: [0, 1],
             outputRange: [2, 10],
@@ -106,18 +107,20 @@ class Row extends Component {
         },
 
         android: {
-          transform: [{
-            scale: this._active.interpolate({
-              inputRange: [0, 1],
-              outputRange: [1, 1.07],
-            }),
-          }],
+          transform: [
+            {
+              scale: this._active.interpolate({
+                inputRange: [0, 1],
+                outputRange: [1, 1.07],
+              }),
+            },
+          ],
           elevation: this._active.interpolate({
             inputRange: [0, 1],
             outputRange: [2, 6],
           }),
         },
-      })
+      }),
     };
   }
 
@@ -127,19 +130,17 @@ class Row extends Component {
         duration: 300,
         easing: Easing.bounce,
         toValue: Number(nextProps.active),
+        useNativeDriver: this.props.useNativeDriver,
       }).start();
     }
   }
 
   render() {
-   const {data, active} = this.props;
+    const { data, active } = this.props;
 
     return (
-      <Animated.View style={[
-        styles.row,
-        this._style,
-      ]}>
-        <Image source={{uri: data.image}} style={styles.image} />
+      <Animated.View style={[styles.row, this._style]}>
+        <Image source={{ uri: data.image }} style={styles.image} />
         <Text style={styles.text}>{data.text}</Text>
       </Animated.View>
     );
@@ -149,9 +150,9 @@ class Row extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#eee',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#eee",
 
     ...Platform.select({
       ios: {
@@ -163,7 +164,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     paddingVertical: 20,
-    color: '#999999',
+    color: "#999999",
   },
 
   list: {
@@ -179,26 +180,25 @@ const styles = StyleSheet.create({
 
       android: {
         paddingVertical: 0,
-      }
-    })
+      },
+    }),
   },
 
   row: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    backgroundColor: '#fff',
+    flexDirection: "column",
+    alignItems: "center",
+    backgroundColor: "#fff",
     padding: 16,
     width: 110,
     height: 150,
     marginHorizontal: 10,
     borderRadius: 4,
 
-
     ...Platform.select({
       ios: {
-        shadowColor: 'rgba(0,0,0,0.2)',
+        shadowColor: "rgba(0,0,0,0.2)",
         shadowOpacity: 1,
-        shadowOffset: {height: 2, width: 2},
+        shadowOffset: { height: 2, width: 2 },
         shadowRadius: 2,
       },
 
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
         elevation: 0,
         marginHorizontal: 30,
       },
-    })
+    }),
   },
 
   image: {
@@ -218,6 +218,6 @@ const styles = StyleSheet.create({
 
   text: {
     fontSize: 18,
-    color: '#222222',
+    color: "#222222",
   },
 });
