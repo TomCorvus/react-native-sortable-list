@@ -4,7 +4,6 @@ import {
   Animated,
   PanResponder,
   StyleSheet,
-  ViewPropTypes,
 } from "react-native";
 import { shallowEqual } from "./utils";
 
@@ -14,7 +13,7 @@ export default class Row extends Component {
     animated: PropTypes.bool,
     disabled: PropTypes.bool,
     horizontal: PropTypes.bool,
-    style: ViewPropTypes.style,
+    style: PropTypes.object,
     location: PropTypes.shape({
       x: PropTypes.number,
       y: PropTypes.number,
